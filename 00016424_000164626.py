@@ -1,2 +1,6 @@
 import pandas as pd
-df = pd.read.csv('00016424_00016426/graduation_dataset.csv')
+import seaborn as sb
+data = pd.read_csv("graduation_dataset.csv")
+print(data.head())
+
+#calculating the average of specific column
