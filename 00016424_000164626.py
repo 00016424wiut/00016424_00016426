@@ -1,13 +1,17 @@
 import pandas as pd
 import seaborn as sb
 import matplotlib.pyplot as plt
-import argparse
+import argparse as arg
+from argparse import ArgumentParser, Namespace
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
-from tkinter import *
-
+from tkinter import ttk
 data = pd.read_csv("graduation_dataset.csv")
 
+#data exploration
+num_rows, num_columns = data.shape
+print(f"Number of rows:{num_rows}")
+print(f"Number of columns:{num_columns  }")
 
 #data cleaning
 print(data.isnull().sum())
@@ -18,23 +22,23 @@ data = data.fillna(0)
 print(data.describe())
 plt.show()
 
+
+#parse
+
+
 #tkinter
-def on_button_click():
-    label.config(text="Hello, " + entry.get())
+class Interface():
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.geometry("500x300+4000+500")
+        self.root.title('User Interface')
+        self.mainframe = tk.Frame(self.root, background='light blue')
+        self.mainframe.pack(fill='both', expand=True)
 
-# Create the main window
-window = tk.Tk()
-window.title("Simple Tkinter Example")
+        self.text = ttk.Label(self.mainframe, text='Choose a column and row')
+        self.text.grid(row=0, column=0)
+        self.root.mainloop()
+        return
 
-# Create and place widgets
-label = tk.Label(window, text="Enter your name:")
-label.pack(pady=10)
-
-entry = tk.Entry(window)
-entry.pack(pady=10)
-
-button = tk.Button(window, text="Click Me!", command=on_button_click)
-button.pack(pady=10)
-
-# Run the Tkinter event loop
-window.mainloop()
+if __name__ == '__main__':
+    Interface()
