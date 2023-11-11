@@ -2,7 +2,9 @@ import pandas as pd
 import seaborn as sb
 import matplotlib.pyplot as plt
 import argparse
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
+from tkinter import *
 
 data = pd.read_csv("graduation_dataset.csv")
 
@@ -14,18 +16,25 @@ data = data.fillna(0)
 
 #data analysis/creating a visualization
 print(data.describe())
-data['Martial status'].value_counts().plot(kind='bar')
 plt.show()
 
-#user interface
+#tkinter
+def on_button_click():
+    label.config(text="Hello, " + entry.get())
+
+# Create the main window
 window = tk.Tk()
-label = tk.Label(window, text="Welcome to the site!")
-label.pack()
+window.title("Simple Tkinter Example")
+
+# Create and place widgets
+label = tk.Label(window, text="Enter your name:")
+label.pack(pady=10)
+
+entry = tk.Entry(window)
+entry.pack(pady=10)
+
+button = tk.Button(window, text="Click Me!", command=on_button_click)
+button.pack(pady=10)
+
+# Run the Tkinter event loop
 window.mainloop()
-
-
-parser = argparse.ArgumentParser(description='Sample CLI using argparse')
-parser.add_argument("name", help="Your name")
-parser.add_argument("age", help="Your age", type=int)
-args = parser.parse_args()
-print(f"Hello, {args.name}. You are {args.age} years old.")
