@@ -30,12 +30,12 @@ plt.show()
 class Interface():
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry("500x300+4000+500")
+        self.root.geometry("500x350+700+700")
         self.root.title('User Interface')
-        self.mainframe = tk.Frame(self.root, background='light blue')
+        self.mainframe = tk.Frame(self.root, background='#b1f2c2')
         self.mainframe.pack(fill='both', expand=True)
 
-        self.text = ttk.Label(self.mainframe, text='Choose a column and row')
+        self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#b1f2c2', font=('Times New Roman', 25))
         self.text.grid(row=0, column=0)
         self.root.mainloop()
         return
