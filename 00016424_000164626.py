@@ -32,13 +32,35 @@ class Interface():
         self.root = tk.Tk()
         self.root.geometry("500x350+700+700")
         self.root.title('User Interface')
+
         self.mainframe = tk.Frame(self.root, background='#b1f2c2')
         self.mainframe.pack(fill='both', expand=True)
+
+        options = [
+            "Marital status", "Application mode", "Application order", "Course", "Daytime/evening attendance",
+            "Previous qualification", "Nationality", "Mother's qualification", "Father's qualification",
+            "Mother's occupation", "Father's occupation", "Displaced", "Educational special needs",
+            "Debtor", "Tuition fees up to date", "Gender", "Scholarship holder", "Age at enrollment",
+            "International", "Curricular units 1st sem (credited)", "Curricular units 1st sem (enrolled)",
+            "Curricular units 1st sem (evaluations)", "Curricular units 1st sem (approved)",
+            "Curricular units 1st sem (grade)", "Curricular units 1st sem (without evaluations)",
+            "Curricular units 2nd sem (credited)", "Curricular units 2nd sem (enrolled)",
+            "Curricular units 2nd sem (evaluations)", "Curricular units 2nd sem (approved)",
+            "Curricular units 2nd sem (grade)", "Curricular units 2nd sem (without evaluations)", "Unemployment rate",
+            "Inflation rate", "GDP", "Target"
+        ]
+        self.clicked = tk.StringVar()
+        self.clicked.set('')
+        drop = tk.OptionMenu(self.root, self.clicked, *options)
+        drop.pack()
+
+        label = tk.Label(self.root, textvariable=self.clicked, height=50)
+        label.pack()
 
         self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#b1f2c2', font=('Times New Roman', 25))
         self.text.grid(row=0, column=0)
         self.root.mainloop()
         return
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     Interface()
