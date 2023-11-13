@@ -1,42 +1,37 @@
 import pandas as pd
-import seaborn as sb
 import matplotlib.pyplot as plt
-import argparse as arg
-from argparse import ArgumentParser, Namespace
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
 from tkinter import ttk
+
 data = pd.read_csv("graduation_dataset.csv")
 
-#data exploration
+# data exploration
 num_rows, num_columns = data.shape
-print(f"Number of rows:{num_rows}")
-print(f"Number of columns:{num_columns  }")
+print(f"Number of rows: {num_rows}")
+print(f"Number of columns: {num_columns}")
 
-#data cleaning
+# data cleaning
 print(data.isnull().sum())
 data = data.drop_duplicates()
 data = data.fillna(0)
 
-#data analysis/creating a visualization
+# data analysis/creating a visualization
 print(data.describe())
 plt.show()
 
 
-#parse
-
-
-#tkinter
+# tkinter
 class Interface():
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry("500x350+700+700")
+        self.root.geometry("600x300+500+500")
         self.root.title('User Interface')
 
         self.mainframe = tk.Frame(self.root, background='#b1f2c2')
         self.mainframe.pack(fill='both', expand=True)
 
-        options = [
+        # label1
+        label_options = [
             "Marital status", "Application mode", "Application order", "Course", "Daytime/evening attendance",
             "Previous qualification", "Nationality", "Mother's qualification", "Father's qualification",
             "Mother's occupation", "Father's occupation", "Displaced", "Educational special needs",
@@ -49,18 +44,37 @@ class Interface():
             "Curricular units 2nd sem (grade)", "Curricular units 2nd sem (without evaluations)", "Unemployment rate",
             "Inflation rate", "GDP", "Target"
         ]
-        self.clicked = tk.StringVar()
-        self.clicked.set('')
-        drop = tk.OptionMenu(self.root, self.clicked, *options)
-        drop.pack()
+        self.set_label_functions = ttk.Combobox(self.mainframe, values=label_options)
+        self.set_label_functions.grid(row=1, column=1, sticky='NWES', pady=10)
 
-        label = tk.Label(self.root, textvariable=self.clicked, height=50)
-        label.pack()
 
-        self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#b1f2c2', font=('Times New Roman', 25))
-        self.text.grid(row=0, column=0)
+        # label2
+        function_options = [
+            "Calculating the average of a column", "Find the minimum and maximum", "Counting the occurrences"
+        ]
+
+        self.set_function_options = ttk.Combobox(self.mainframe, values=function_options)
+        self.set_function_options.grid(row=2, column=1, sticky='NWES', pady=10)
+
+        #buttons
+        set_columns_button = ttk.Button(self.mainframe, text="Columns")
+        set_columns_button.grid(row=1, column=0, pady=10)
+
+        set_functions_button = ttk.Button(self.mainframe, text="Functions")
+        set_functions_button.grid(row=2, column=0, pady=10)
+
+
+        self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#b1f2c2', font=('Times New Roman', 20))
+        self.text.grid(row=0, column=1)
         self.root.mainloop()
-        return
+
+def set_columns(self):
+    newcolumn = self.set_text_field.get()
+    self.text.config(text=newcolumn)
+
+def set_functions(self):
+    newfunction = self.set_text_field.get()
+    self.text.config(text=newfunction)
 
 if __name__ == "__main__":
     Interface()
