@@ -5,11 +5,6 @@ from tkinter import ttk
 
 data = pd.read_csv("graduation_dataset.csv")
 
-# data exploration
-num_rows, num_columns = data.shape
-print(f"Number of rows: {num_rows}")
-print(f"Number of columns: {num_columns}")
-
 # data cleaning
 print(data.isnull().sum())
 data = data.drop_duplicates()
@@ -27,12 +22,12 @@ class Interface():
         self.root.geometry("600x300+500+500")
         self.root.title('User Interface')
 
-        self.mainframe = tk.Frame(self.root, background='#b1f2c2')
+        self.mainframe = tk.Frame(self.root, background='#d3e3db')
         self.mainframe.pack(fill='both', expand=True)
 
         # label1
-        label_options = [
-            "Marital status", "Application mode", "Application order", "Course", "Daytime/evening attendance",
+        column_options = [
+            "All", "Marital status", "Application mode", "Application order", "Course", "Daytime/evening attendance",
             "Previous qualification", "Nationality", "Mother's qualification", "Father's qualification",
             "Mother's occupation", "Father's occupation", "Displaced", "Educational special needs",
             "Debtor", "Tuition fees up to date", "Gender", "Scholarship holder", "Age at enrollment",
@@ -44,37 +39,46 @@ class Interface():
             "Curricular units 2nd sem (grade)", "Curricular units 2nd sem (without evaluations)", "Unemployment rate",
             "Inflation rate", "GDP", "Target"
         ]
-        self.set_label_functions = ttk.Combobox(self.mainframe, values=label_options)
-        self.set_label_functions.grid(row=1, column=1, sticky='NWES', pady=10)
+        self.set_column_options = ttk.Combobox(self.mainframe, values=column_options)
+        self.set_column_options.grid(row=1, column=1, sticky='NWES', pady=10)
 
+        label = tk.Label(self.mainframe, text="Columns", bg='#b1f2c2', )
+        label.grid(row=1, column=0)
 
         # label2
         function_options = [
-            "Calculating the average of a column", "Find the minimum and maximum", "Counting the occurrences"
+            "Number of rows and columns", "Calculating the average of a column", "Find the minimum and maximum",
+            "Counting the occurrences", "Graph"
         ]
 
         self.set_function_options = ttk.Combobox(self.mainframe, values=function_options)
         self.set_function_options.grid(row=2, column=1, sticky='NWES', pady=10)
 
-        #buttons
-        set_columns_button = ttk.Button(self.mainframe, text="Columns")
-        set_columns_button.grid(row=1, column=0, pady=10)
+        label2 = tk.Label(self.mainframe, text="Functions", bg='#b1f2c2', )
+        label2.grid(row=2, column=0)
 
-        set_functions_button = ttk.Button(self.mainframe, text="Functions")
-        set_functions_button.grid(row=2, column=0, pady=10)
+        #button
+        set_button = ttk.Button(self.mainframe, text="Result", command=button_func)
+        set_button.grid(row=3, column=1, pady=10)
 
 
-        self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#b1f2c2', font=('Times New Roman', 20))
+
+        self.text = ttk.Label(self.mainframe, text='Choose a column and function', background='#d3e3db', font=('Times New Roman', 20))
         self.text.grid(row=0, column=1)
         self.root.mainloop()
+def button_func(set_function_options):
+    func = set_function_options.get().strip().lower()
 
-def set_columns(self):
-    newcolumn = self.set_text_field.get()
-    self.text.config(text=newcolumn)
+    if func in ("Number of rows and columns"):
+        num_rows, num_columns = data.shape
+        print(f"Number of rows: {num_rows}")
+        print(f"Number of columns: {num_columns}")
 
-def set_functions(self):
-    newfunction = self.set_text_field.get()
-    self.text.config(text=newfunction)
+    elif func in ("Calculating the average of a column"):
+        df=pd.DataFrame()
+        df["average"] = df[][1:].mean()
+        print(df["average"])
+
 
 if __name__ == "__main__":
     Interface()
