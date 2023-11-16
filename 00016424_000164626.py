@@ -56,7 +56,7 @@ class Interface:
         # functions label
         function_options = [
             "Calculating the average of a column", "Finding the minimum and maximum",
-            "Counting the occurrences", "Grouping and summarizing the columns", "Graph"
+            "Counting the occurrences", "Graph"
         ]
         self.set_function_options = ttk.Combobox(self.mainframe, values=function_options)
         self.set_function_options.grid(row=2, column=1, sticky='NWES', pady=8)
